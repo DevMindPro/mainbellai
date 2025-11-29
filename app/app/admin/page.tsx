@@ -1628,7 +1628,7 @@ function BlockchainTab() {
     const [activeSection, setActiveSection] = useState<"overview" | "events" | "metrics" | "controls">("overview");
 
     const networks = useQuery(api.networkManagement.getAllNetworks, {});
-    const selectedNetworkDoc = networks?.find((n) => n.network === selectedNetwork);
+    const selectedNetworkDoc = networks?.find((n: any) => n.network === selectedNetwork);
 
     return (
         <div className="space-y-6">
