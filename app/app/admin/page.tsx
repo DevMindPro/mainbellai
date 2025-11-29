@@ -347,10 +347,10 @@ export default function AdminPage() {
 
                     {/* SYSTEM TAB */}
                     {activeTab === "system" && (
-                        <SystemTab 
-                            recalculateAllRanks={recalculateAllRanks} 
-                            cronLogs={cronLogs} 
-                            toast={toast} 
+                        <SystemTab
+                            recalculateAllRanks={recalculateAllRanks}
+                            cronLogs={cronLogs}
+                            toast={toast}
                             setConfirmModal={setConfirmModal}
                             toggleBLSSystem={toggleBLSSystem}
                             updateBLSConfig={updateBLSConfig}
@@ -866,18 +866,17 @@ function StakingCyclesTab({ stakingCycles, createStakingCycle, updateStakingCycl
                         <button
                             onClick={handleToggleStaking}
                             disabled={isTogglingStaking}
-                            className={`px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-all ${
-                                pauseStates?.stakingPaused
+                            className={`px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-all ${pauseStates?.stakingPaused
                                     ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
                                     : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                            } ${isTogglingStaking ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                } ${isTogglingStaking ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {pauseStates?.stakingPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
                             {pauseStates?.stakingPaused ? 'Resume Staking' : 'Pause Staking'}
                         </button>
                     </div>
                     <p className="text-xs text-slate-500">
-                        {pauseStates?.stakingPaused 
+                        {pauseStates?.stakingPaused
                             ? 'Users cannot create new stakes. Existing stakes continue earning.'
                             : 'Users can create new stakes normally.'}
                     </p>
@@ -897,18 +896,17 @@ function StakingCyclesTab({ stakingCycles, createStakingCycle, updateStakingCycl
                         <button
                             onClick={handleToggleWithdrawals}
                             disabled={isTogglingWithdrawals}
-                            className={`px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-all ${
-                                pauseStates?.withdrawalsPaused
+                            className={`px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition-all ${pauseStates?.withdrawalsPaused
                                     ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
                                     : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                            } ${isTogglingWithdrawals ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                } ${isTogglingWithdrawals ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {pauseStates?.withdrawalsPaused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
                             {pauseStates?.withdrawalsPaused ? 'Resume Withdrawals' : 'Pause Withdrawals'}
                         </button>
                     </div>
                     <p className="text-xs text-slate-500">
-                        {pauseStates?.withdrawalsPaused 
+                        {pauseStates?.withdrawalsPaused
                             ? 'Users cannot request new withdrawals. Pending withdrawals can still be processed.'
                             : 'Users can request withdrawals normally.'}
                     </p>
@@ -1136,11 +1134,11 @@ function SystemTab({ recalculateAllRanks, cronLogs, toast, setConfirmModal, togg
     // Fetch system configs
     const systemConfigs = useQuery(api.configs.getAllConfigs);
     const setConfig = useMutation(api.configs.setConfig);
-    
+
     // BLS System
     const blsConfig = useQuery(api.bls.getBLSConfig);
     const blsStats = useQuery(api.bls.getBLSStats);
-    
+
     const [blsSettings, setBlsSettings] = useState({
         conversionRate: 1.0,
         minSwapAmount: 1.0,
@@ -1419,11 +1417,10 @@ function SystemTab({ recalculateAllRanks, cronLogs, toast, setConfirmModal, togg
                         </p>
                     </div>
                     <div className="flex items-center gap-3">
-                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                            blsConfig?.isEnabled 
-                                ? "bg-emerald-500/20 text-emerald-400" 
+                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${blsConfig?.isEnabled
+                                ? "bg-emerald-500/20 text-emerald-400"
                                 : "bg-slate-700 text-slate-400"
-                        }`}>
+                            }`}>
                             {blsConfig?.isEnabled ? "ENABLED" : "DISABLED"}
                         </span>
                         <button
@@ -1445,11 +1442,10 @@ function SystemTab({ recalculateAllRanks, cronLogs, toast, setConfirmModal, togg
                                     }
                                 });
                             }}
-                            className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${
-                                blsConfig?.isEnabled
+                            className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${blsConfig?.isEnabled
                                     ? "bg-red-600 hover:bg-red-700 text-white"
                                     : "bg-emerald-600 hover:bg-emerald-700 text-white"
-                            }`}
+                                }`}
                         >
                             {blsConfig?.isEnabled ? "Disable" : "Enable"}
                         </button>
@@ -1645,16 +1641,15 @@ function BlockchainTab() {
                     </label>
                     <div className="flex gap-2 flex-wrap">
                         {networks
-                            .filter((n) => n.isActive && n.contractAddress)
-                            .map((network) => (
+                            .filter((n: any) => n.isActive && n.contractAddress)
+                            .map((network: any) => (
                                 <button
                                     key={network.network}
                                     onClick={() => setSelectedNetwork(network.network)}
-                                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                                        selectedNetwork === network.network
+                                    className={`px-4 py-2 rounded-lg font-medium transition-colors ${selectedNetwork === network.network
                                             ? "bg-blue-600 text-white"
                                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                                    }`}
+                                        }`}
                                 >
                                     {network.name}
                                 </button>
@@ -1677,11 +1672,10 @@ function BlockchainTab() {
                                 <button
                                     key={section.id}
                                     onClick={() => setActiveSection(section.id as any)}
-                                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${
-                                        activeSection === section.id
+                                    className={`flex-1 px-4 py-2 rounded-lg font-medium transition-colors ${activeSection === section.id
                                             ? "bg-blue-600 text-white"
                                             : "text-gray-600 hover:bg-gray-100"
-                                    }`}
+                                        }`}
                                 >
                                     {section.label}
                                 </button>
@@ -1718,8 +1712,8 @@ function BlockchainTab() {
                         {!selectedNetworkDoc
                             ? "No network selected"
                             : !selectedNetworkDoc.isActive
-                            ? "Network is not active"
-                            : "Contract not deployed"}
+                                ? "Network is not active"
+                                : "Contract not deployed"}
                     </p>
                 </div>
             )}
@@ -1762,10 +1756,10 @@ function StatsCard({ title, value, change, icon, color }: { title: string, value
     );
 }
 
-function CommissionBar({ label, amount, percentage, color, blsAmount, isBLSEnabled }: { 
-    label: string, 
-    amount: number, 
-    percentage: string, 
+function CommissionBar({ label, amount, percentage, color, blsAmount, isBLSEnabled }: {
+    label: string,
+    amount: number,
+    percentage: string,
     color: string,
     blsAmount?: number | null,
     isBLSEnabled?: boolean
