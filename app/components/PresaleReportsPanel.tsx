@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
 import {
-    Calendar, Download, Filter, TrendingUp, Users, 
+    Calendar, Download, Filter, TrendingUp, Users,
     DollarSign, Package, Clock, CheckCircle, XCircle,
     AlertCircle, BarChart3, PieChart, Activity, FileText,
     Search, ArrowUpDown, Lock, Unlock, Award
@@ -43,8 +43,8 @@ export function PresaleReportsPanel() {
 
     const handleExportCSV = () => {
         if (!detailedReport) return;
-        
-        const csvData = detailedReport.orders.map(order => ({
+
+        const csvData = detailedReport.orders.map((order: any) => ({
             "Order ID": order.orderId,
             "User Name": order.userName,
             "User Email": order.userEmail,
@@ -73,7 +73,7 @@ export function PresaleReportsPanel() {
 
     const handleExportJSON = () => {
         if (!detailedReport) return;
-        
+
         const jsonData = JSON.stringify({
             exportDate: new Date().toISOString(),
             dateRange,
@@ -269,11 +269,10 @@ export function PresaleReportsPanel() {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap ${
-                            activeTab === tab.id
+                        className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all whitespace-nowrap ${activeTab === tab.id
                                 ? "bg-purple-600 text-white shadow-lg shadow-purple-500/25"
                                 : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white"
-                        }`}
+                            }`}
                     >
                         {tab.icon}
                         {tab.label}
@@ -284,8 +283,8 @@ export function PresaleReportsPanel() {
             {/* Tab Content */}
             <div className="min-h-[600px]">
                 {activeTab === "purchases" && detailedReport && (
-                    <PurchaseDetailsTab 
-                        data={detailedReport} 
+                    <PurchaseDetailsTab
+                        data={detailedReport}
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
                     />
@@ -342,7 +341,7 @@ function PurchaseDetailsTab({ data, searchTerm, setSearchTerm }: any) {
     const sortedOrders = [...filteredOrders].sort((a: any, b: any) => {
         const aVal = a[sortField];
         const bVal = b[sortField];
-        return sortDirection === "asc" 
+        return sortDirection === "asc"
             ? (aVal > bVal ? 1 : -1)
             : (aVal < bVal ? 1 : -1);
     });
@@ -366,34 +365,34 @@ function PurchaseDetailsTab({ data, searchTerm, setSearchTerm }: any) {
                                 </linearGradient>
                             </defs>
                             <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                            <XAxis 
-                                dataKey="date" 
-                                stroke="#94a3b8" 
+                            <XAxis
+                                dataKey="date"
+                                stroke="#94a3b8"
                                 fontSize={12}
                                 tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                             />
                             <YAxis yAxisId="left" stroke="#94a3b8" fontSize={12} />
                             <YAxis yAxisId="right" orientation="right" stroke="#94a3b8" fontSize={12} />
-                            <Tooltip 
+                            <Tooltip
                                 contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#fff' }}
                                 labelFormatter={(value) => new Date(value).toLocaleDateString()}
                             />
                             <Legend />
-                            <Area 
+                            <Area
                                 yAxisId="left"
-                                type="monotone" 
-                                dataKey="orders" 
-                                stroke="#8b5cf6" 
-                                fillOpacity={1} 
+                                type="monotone"
+                                dataKey="orders"
+                                stroke="#8b5cf6"
+                                fillOpacity={1}
                                 fill="url(#colorOrders)"
                                 name="Orders"
                             />
-                            <Area 
+                            <Area
                                 yAxisId="right"
-                                type="monotone" 
-                                dataKey="revenue" 
-                                stroke="#10b981" 
-                                fillOpacity={1} 
+                                type="monotone"
+                                dataKey="revenue"
+                                stroke="#10b981"
+                                fillOpacity={1}
                                 fill="url(#colorRevenue)"
                                 name="Revenue ($)"
                             />
@@ -521,14 +520,14 @@ function VestingScheduleTab({ data }: any) {
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data.vestingTimeline}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                            <XAxis 
-                                dataKey="date" 
-                                stroke="#94a3b8" 
+                            <XAxis
+                                dataKey="date"
+                                stroke="#94a3b8"
                                 fontSize={12}
                                 tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                             />
                             <YAxis stroke="#94a3b8" fontSize={12} />
-                            <Tooltip 
+                            <Tooltip
                                 contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#fff' }}
                                 labelFormatter={(value) => new Date(value).toLocaleDateString()}
                             />
@@ -624,12 +623,11 @@ function UserAnalyticsTab({ data }: any) {
                             {data.topBuyers.map((buyer: any, index: number) => (
                                 <tr key={buyer.userId} className="hover:bg-slate-800/30 transition-colors">
                                     <td className="p-4">
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                                            index === 0 ? 'bg-yellow-500/20 text-yellow-400 border-2 border-yellow-500/30' :
-                                            index === 1 ? 'bg-slate-400/20 text-slate-400 border-2 border-slate-400/30' :
-                                            index === 2 ? 'bg-orange-500/20 text-orange-400 border-2 border-orange-500/30' :
-                                            'bg-slate-800 text-slate-400'
-                                        }`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${index === 0 ? 'bg-yellow-500/20 text-yellow-400 border-2 border-yellow-500/30' :
+                                                index === 1 ? 'bg-slate-400/20 text-slate-400 border-2 border-slate-400/30' :
+                                                    index === 2 ? 'bg-orange-500/20 text-orange-400 border-2 border-orange-500/30' :
+                                                        'bg-slate-800 text-slate-400'
+                                            }`}>
                                             {index + 1}
                                         </div>
                                     </td>
@@ -668,7 +666,7 @@ function UserAnalyticsTab({ data }: any) {
                                 <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
                                 <XAxis dataKey="range" stroke="#94a3b8" fontSize={12} />
                                 <YAxis stroke="#94a3b8" fontSize={12} />
-                                <Tooltip 
+                                <Tooltip
                                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#fff' }}
                                 />
                                 <Bar dataKey="count" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
